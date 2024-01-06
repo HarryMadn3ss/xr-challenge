@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerController : MonoBehaviour
 {
 
@@ -64,5 +65,12 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
         }
+    }
+
+    private void OnTriggerEnter(Collider collision)
+    {
+        GameObject collectable = collision.transform.gameObject;
+
+        collectable.GetComponent<Pickup>().GetPickedUp();
     }
 }
