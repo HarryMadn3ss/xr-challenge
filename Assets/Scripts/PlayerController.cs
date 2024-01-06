@@ -13,12 +13,15 @@ public class PlayerController : MonoBehaviour
     float m_minSpeed = 0;
 
     bool m_forward, m_backward, m_left, m_right;
+
+    GameObject m_scoreManager;
     
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        m_scoreManager = GameObject.Find("ScoreManager");
     }
 
     // Update is called once per frame
@@ -72,5 +75,8 @@ public class PlayerController : MonoBehaviour
         GameObject collectable = collision.transform.gameObject;
 
         collectable.GetComponent<Pickup>().GetPickedUp();
+
+        m_scoreManager.GetComponent<ScoreManager>().IncreaseScore(collectable.GetComponent<Pickup>().ScoreValue);
+
     }
 }
