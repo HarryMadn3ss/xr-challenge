@@ -12,6 +12,8 @@ public class ScoreManager : MonoBehaviour
     TextMeshProUGUI m_scoreText;
     TextMeshProUGUI m_timerText;
 
+    GameObject m_EscapeZone;
+
     private void Start()
     {
         m_score = 0;
@@ -22,6 +24,8 @@ public class ScoreManager : MonoBehaviour
 
         m_timerText = GameObject.Find("TimerText").GetComponent<TextMeshProUGUI>();
         m_timerText.text = "Timer: " + m_timer.ToString();
+
+        m_EscapeZone = GameObject.Find("EscapeZone");
     }
 
     private void FixedUpdate()
@@ -33,7 +37,15 @@ public class ScoreManager : MonoBehaviour
     public void IncreaseScore(int scoreToIncrease)
     {
         m_score += scoreToIncrease;
+
+        if(m_score >= 500)
+        {
+            m_EscapeZone.GetComponent<EscapeZone>().SetCanEscape(true);
+        }
+
         m_scoreText.text = m_scoreText.text = "Score: " + m_score.ToString();
     }
+
+    
 
 }
