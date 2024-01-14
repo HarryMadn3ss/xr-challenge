@@ -9,38 +9,47 @@ public class Projectile : MonoBehaviour
     public float m_speed = 10;
 
     Rigidbody m_RB;
-    Camera m_Camera;
+    //Camera m_Camera;
 
+    GameObject m_player;
    
 
     // Start is called before the first frame update
     void Start()
     {
+        //m_RB = GetComponent<Rigidbody>();
+        //m_Camera = GameObject.Find("Camera").GetComponent<Camera>();
+       
+
+        //Vector3 mousePos = Input.mousePosition;
+        //mousePos.z = mousePos.y;
+        //mousePos.y = 1;
+        //Vector3 firingDirection = m_Camera.ScreenToWorldPoint(mousePos);        
+        //firingDirection = firingDirection - GameObject.Find("Player").GetComponent<Transform>().position;
+        //firingDirection = firingDirection.normalized;
+
+        //m_RB.velocity = firingDirection;
+
+
         m_RB = GetComponent<Rigidbody>();
-        m_Camera = GameObject.Find("Camera").GetComponent<Camera>();
+        m_player = GameObject.Find("Player");
 
-        m_Camera.
+        m_RB.velocity = m_player.GetComponent<FiringController>().GetProjectileVelocity() * m_speed;
 
-        Vector3 mousePos = Input.mousePosition;
-        mousePos.z = mousePos.y;
-        mousePos.y = 1;
-        Vector3 firingDirection = m_Camera.ScreenToWorldPoint(mousePos);        
-        firingDirection = firingDirection - GameObject.Find("Player").GetComponent<Transform>().position;
-        firingDirection = firingDirection.normalized;
-
-        m_RB.velocity = firingDirection;
+        m_player.GetComponent<FiringController>().ResetVelocity();
+     
     }
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.tag == "Projectile")
-        //{
+        if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "Player")
+        {
 
-        //}
-        //else
-        //{
-        //    Destroy(this.gameObject);
-        //}
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

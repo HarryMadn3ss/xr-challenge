@@ -13,9 +13,7 @@ public class PlayerController : MonoBehaviour
     public float m_maxSpeed = 10;
     float m_minSpeed = 0;
 
-    bool m_forward, m_backward, m_left, m_right;
-    bool m_isFiring;
-    float m_fireCooldown = 2;
+    bool m_forward, m_backward, m_left, m_right;    
 
     GameManager m_manager;
     public GameObject m_projectile;
@@ -34,8 +32,7 @@ public class PlayerController : MonoBehaviour
         m_forward = Input.GetKey(KeyCode.W);
         m_backward = Input.GetKey(KeyCode.S);
         m_left = Input.GetKey(KeyCode.A);
-        m_right = Input.GetKey(KeyCode.D);
-        m_isFiring = Input.GetMouseButton(0);
+        m_right = Input.GetKey(KeyCode.D);        
     }
 
     private void FixedUpdate()
@@ -70,20 +67,10 @@ public class PlayerController : MonoBehaviour
         {
             rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , -Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
         }
-        if(m_forward && m_left)
+        if (m_forward && m_left)
         {
-            rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
-        }
-        
-        //shooting
-        if(m_isFiring && m_fireCooldown <= 0)
-        {            
-            Instantiate(m_projectile, this.transform.position, Quaternion.identity);
-            m_fireCooldown = 2;
-        }
-        m_fireCooldown -= Time.deltaTime;
-        
-
+            rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0, Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
+        } 
     }
 
     private void OnTriggerEnter(Collider collision)
