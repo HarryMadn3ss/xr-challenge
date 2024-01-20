@@ -6,7 +6,7 @@ public class FiringController : MonoBehaviour
 {
     bool m_isFiring;
     float m_cooldown;
-    public float m_maxColldown = 1;
+    public float m_maxCooldown = 1;
 
     bool m_fireUp, m_fireDown, m_fireLeft, m_fireRight;
 
@@ -41,38 +41,35 @@ public class FiringController : MonoBehaviour
             m_isFiring = false;
         }
 
-    }
-
-        private void FixedUpdate()
-    {
         if (m_isFiring && m_cooldown <= 0)
         {
-            if(m_fireUp)
+            if (m_fireUp)
             {
                 m_projectileVelocity.z = 1;
-                m_spwanPos.z = 0.8f;
+                m_spwanPos.z = transform.position.z + 0.8f;
             }
-            if (m_fireDown)
+            else if (m_fireDown)
             {
                 m_projectileVelocity.z = -1;
-                m_spwanPos.z = -0.8f;
+                m_spwanPos.z = transform.position.z - 0.8f;
             }
-            if(m_fireLeft)
+            else if (m_fireLeft)
             {
                 m_projectileVelocity.x = -2.1f;
-                m_spwanPos.x = -0.8f;
+                m_spwanPos.x = transform.position.x - 0.8f;
             }
-            if( m_fireRight)
+            else if (m_fireRight)
             {
                 m_projectileVelocity.x = 1;
-                m_spwanPos.x = 0.8f;
+                m_spwanPos.x = transform.position.x + 0.8f;
             }
 
-            Instantiate(m_projectile, m_spwanPos, Quaternion.identity);            
+            Instantiate(m_projectile, m_spwanPos, Quaternion.identity);
 
             m_cooldown = m_maxCooldown;
-            m_spwanPos = Vector3.zero;
         }
+            m_spwanPos = transform.position;
+
     }
 
     public Vector3 GetProjectileVelocity() { return m_projectileVelocity; }
