@@ -81,5 +81,6 @@ public class PlayerController : MonoBehaviour
 
         m_manager.GetComponent<ScoreManager>().IncreaseScore(collectable.GetComponent<Pickup>().ScoreValue);
 
+        Destroy(collectable);
     }
 }
