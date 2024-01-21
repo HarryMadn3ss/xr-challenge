@@ -13,6 +13,9 @@ public class EnemyController : MonoBehaviour
     int m_health = 3;
 
     public float m_speed = 1;
+
+    bool m_isColliding = false;
+    Vector3 m_repelingForce;
     
 
     // Start is called before the first frame update
@@ -33,6 +36,11 @@ public class EnemyController : MonoBehaviour
             direction = Vector3.Normalize(direction);
 
             m_rb.velocity = direction * m_speed;
+
+            if(m_isColliding )
+            {
+                m_rb.AddForce(m_repelingForce, ForceMode.Impulse);
+            }
         }        
     }
 
@@ -53,9 +61,24 @@ public class EnemyController : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        if(collision.gameObject.tag == "Enemy")
+        {
+            Vector3 direction = collision.transform.position - transform.position;
+            direction = -Vector3.Normalize(direction);
+            m_repelingForce = direction;
+            m_isColliding = true;
+        }
     }
 
-    
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            m_isColliding = false;
+        }
+    }
+
+
 
 
 }

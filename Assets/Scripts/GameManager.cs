@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject m_pickup;
     public bool m_gameOver = false;
     GameObject m_gameOverUI;
+  
 
     // Start is called before the first frame update
     void Start()
@@ -27,8 +28,14 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        //spawn enimies
+    {        
+        if(m_gameOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.SetActiveScene(SceneManager.GetActiveScene());
+            }            
+        }
 
     }
 
