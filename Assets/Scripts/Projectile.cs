@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float m_speed = 10;
-
+    
     Rigidbody m_RB;
     //Camera m_Camera;
 
@@ -34,7 +33,7 @@ public class Projectile : MonoBehaviour
         m_RB = GetComponent<Rigidbody>();
         m_player = GameObject.Find("Player");
 
-        m_RB.velocity = m_player.GetComponent<FiringController>().GetProjectileVelocity() * m_speed;
+        m_RB.velocity = m_player.GetComponent<FiringController>().GetProjectileVelocity();
 
         m_player.GetComponent<FiringController>().ResetVelocity();
      

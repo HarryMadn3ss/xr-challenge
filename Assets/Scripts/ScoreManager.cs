@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
+    GameManager m_gameManager;
+
     private int m_score;
     private float m_timer;
 
@@ -19,6 +21,8 @@ public class ScoreManager : MonoBehaviour
         m_score = 0;
         m_timer = 0;
 
+        m_gameManager = GameObject.Find("Managers").GetComponent<GameManager>();
+
         m_scoreText = GameObject.Find("ScoreText").GetComponent<TextMeshProUGUI>();
         m_scoreText.text = "Score: " + m_score.ToString();
 
@@ -30,8 +34,12 @@ public class ScoreManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        m_timer += Time.deltaTime;
-        m_timerText.text = "Timer: " + (Mathf.Round(m_timer * 100) / 100).ToString();
+        if(m_gameManager.GetGameOver() == false)
+        {
+            m_timer += Time.deltaTime;
+            m_timerText.text = "Timer: " + (Mathf.Round(m_timer * 100) / 100).ToString();
+        }
+        
     }
 
     public void IncreaseScore(int scoreToIncrease)
@@ -39,8 +47,8 @@ public class ScoreManager : MonoBehaviour
         m_score += scoreToIncrease;
 
         if(m_score >= 500)
-        {
-            m_EscapeZone.GetComponent<EscapeZone>().SetCanEscape(true);
+        {           
+           m_EscapeZone.GetComponent<EscapeZone>().SetCanEscape(true);           
         }
 
         m_scoreText.text = m_scoreText.text = "Score: " + m_score.ToString();

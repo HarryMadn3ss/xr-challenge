@@ -24,16 +24,25 @@ public class CompassController : MonoBehaviour
     {
         m_starPickups = GameObject.FindGameObjectsWithTag("Star");
 
-        for (int i = 0; i < m_starPickups.Length; i++)
+        if(m_starPickups.Length > 0)
         {
-            m_distance = Vector3.Magnitude(m_starPickups[i].transform.position - m_player.transform.position);
-
-            if(m_distance < m_smallestDist)
+            for (int i = 0; i < m_starPickups.Length; i++)
             {
-                m_smallestDist = m_distance;
-                m_closestStar = m_starPickups[i];
-            }                
+                m_distance = Vector3.Magnitude(m_starPickups[i].transform.position - m_player.transform.position);
+
+                if(m_distance < m_smallestDist)
+                {
+                    m_smallestDist = m_distance;
+                    m_closestStar = m_starPickups[i];
+                }                
+            }
         }
+        else
+        {
+            m_closestStar = GameObject.Find("EscapeZone");
+        }
+        
+
 
         Vector3 direction = m_closestStar.transform.position - m_player.transform.position;
         transform.rotation = Quaternion.Euler(0, 0, -Quaternion.LookRotation(direction).eulerAngles.y); 

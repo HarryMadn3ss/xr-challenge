@@ -7,10 +7,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    Rigidbody rb;
+    Rigidbody m_rb;
 
-    public float m_speed = 10;
-    public float m_maxSpeed = 10;
+    float m_speed = 250;
+    float m_maxSpeed = 50;
     float m_minSpeed = 0;
 
     bool m_forward, m_backward, m_left, m_right;    
@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        m_rb = GetComponent<Rigidbody>();
         m_manager = GameObject.Find("Managers").GetComponent<GameManager>();
     }
 
@@ -38,39 +38,43 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //movement
-        if(m_forward)
-        {
-            rb.velocity = new Vector3(0, 0, Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
-        }
-        if(m_backward)
-        {
-            rb.velocity = new Vector3(0, 0, -Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
-        }
-        if(m_left)
-        {
-            rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0, 0);
-        }
-        if(m_right)
-        {
-            rb.velocity = new Vector3(Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0, 0);
-        }
 
         if(m_forward && m_right)
         {
-            rb.velocity = new Vector3(Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
+            m_rb.velocity = new Vector3(Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
         } 
-        if(m_backward && m_right)
+        else if(m_backward && m_right)
         {
-            rb.velocity = new Vector3(Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , -Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
+            m_rb.velocity = new Vector3(Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , -Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
         }
-        if(m_backward && m_left)
+        else if(m_backward && m_left)
         {
-            rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , -Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
+            m_rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0 , -Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
         }
-        if (m_forward && m_left)
+        else if (m_forward && m_left)
         {
-            rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0, Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
+            m_rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0, Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
         } 
+        else if(m_forward)
+        {
+            m_rb.velocity = new Vector3(0, 0, Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
+        }
+        else if(m_backward)
+        {
+            m_rb.velocity = new Vector3(0, 0, -Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed));
+        }
+        else if(m_left)
+        {
+            m_rb.velocity = new Vector3(-Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0, 0);
+        }
+        else if(m_right)
+        {
+            m_rb.velocity = new Vector3(Mathf.Clamp(m_speed * Time.deltaTime, m_minSpeed, m_maxSpeed), 0, 0);
+        }
+        else
+        {
+            m_rb.velocity = Vector3.zero;
+        }
     }
 
     private void OnTriggerEnter(Collider collision)

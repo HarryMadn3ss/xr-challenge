@@ -8,6 +8,8 @@ public class FiringController : MonoBehaviour
     float m_cooldown;
     public float m_maxCooldown = 1;
 
+    public float m_speed = 10;
+
     bool m_fireUp, m_fireDown, m_fireLeft, m_fireRight;
 
     public GameObject m_projectile;
@@ -64,6 +66,7 @@ public class FiringController : MonoBehaviour
                 m_spwanPos.x = transform.position.x + 0.8f;
             }
 
+            m_projectileVelocity *= m_speed;
             Instantiate(m_projectile, m_spwanPos, Quaternion.identity);
 
             m_cooldown = m_maxCooldown;
