@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Star
   - Projectile
+  - Enemy
+  - Wall
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ public class EnemyController : MonoBehaviour
 
     Rigidbody m_rb;
 
-    int m_health = 3;
+    int m_health = 2;
 
     public float m_speed = 1;
 
@@ -58,6 +58,7 @@ public class EnemyController : MonoBehaviour
             if(m_health <= 0)
             {
                 m_scoreManager.IncreaseScore(1);
+                m_player.GetComponent<FiringController>().IncreaseAbillity();
                 Destroy(gameObject);
             }
         }
@@ -65,9 +66,9 @@ public class EnemyController : MonoBehaviour
         {
             Vector3 direction = collision.transform.position - transform.position;
             direction = -Vector3.Normalize(direction);
-            m_repelingForce = direction;
+            m_repelingForce = direction / 2;
             m_isColliding = true;
-        }
+        }        
     }
 
     private void OnCollisionExit(Collision collision)

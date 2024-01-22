@@ -13,7 +13,7 @@ public class HealthController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_health = 1;
+        m_health = 3;
         m_gameManager = GameObject.Find("Managers").GetComponent<GameManager>();
         m_rb = GetComponent<Rigidbody>();
     }

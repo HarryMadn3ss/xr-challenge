@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject m_pickup;
     public bool m_gameOver = false;
     GameObject m_gameOverUI;
+    public GameObject m_enemySpawner;
   
 
     // Start is called before the first frame update
@@ -24,6 +25,12 @@ public class GameManager : MonoBehaviour
         {
             Instantiate(m_pickup, new Vector3(Random.Range(10.0f, 40.0f), 0, Random.Range(10.0f, 40.0f)), Quaternion.identity);
         }
+        
+        Instantiate(m_enemySpawner, new Vector3(2f, 0.5f, 2f), Quaternion.identity);
+        Instantiate(m_enemySpawner, new Vector3(2f, 0.5f, 48f), Quaternion.identity);
+        Instantiate(m_enemySpawner, new Vector3(48f, 0.5f, 2f), Quaternion.identity);
+        Instantiate(m_enemySpawner, new Vector3(48f, 0.5f, 48f), Quaternion.identity);
+
     }
 
     // Update is called once per frame
