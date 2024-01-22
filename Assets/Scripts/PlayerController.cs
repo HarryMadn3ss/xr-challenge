@@ -32,7 +32,12 @@ public class PlayerController : MonoBehaviour
         m_forward = Input.GetKey(KeyCode.W);
         m_backward = Input.GetKey(KeyCode.S);
         m_left = Input.GetKey(KeyCode.A);
-        m_right = Input.GetKey(KeyCode.D);        
+        m_right = Input.GetKey(KeyCode.D);
+        
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            m_manager.ResetScene();
+        }
     }
 
     private void FixedUpdate()

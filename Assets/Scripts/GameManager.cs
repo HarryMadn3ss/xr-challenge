@@ -26,23 +26,17 @@ public class GameManager : MonoBehaviour
             Instantiate(m_pickup, new Vector3(Random.Range(10.0f, 40.0f), 0, Random.Range(10.0f, 40.0f)), Quaternion.identity);
         }
         
-        Instantiate(m_enemySpawner, new Vector3(2f, 0.5f, 2f), Quaternion.identity);
-        Instantiate(m_enemySpawner, new Vector3(2f, 0.5f, 48f), Quaternion.identity);
-        Instantiate(m_enemySpawner, new Vector3(48f, 0.5f, 2f), Quaternion.identity);
-        Instantiate(m_enemySpawner, new Vector3(48f, 0.5f, 48f), Quaternion.identity);
+        Instantiate(m_enemySpawner, new Vector3(2f, 0.2f, 2f), Quaternion.identity);
+        Instantiate(m_enemySpawner, new Vector3(2f, 0.2f, 48f), Quaternion.identity);
+        Instantiate(m_enemySpawner, new Vector3(48f, 0.2f, 2f), Quaternion.identity);
+        Instantiate(m_enemySpawner, new Vector3(48f, 0.2f, 48f), Quaternion.identity);
 
     }
 
     // Update is called once per frame
     void Update()
-    {        
-        if(m_gameOver)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                SceneManager.SetActiveScene(SceneManager.GetActiveScene());
-            }            
-        }
+    {       
+     
 
     }
 
@@ -50,6 +44,14 @@ public class GameManager : MonoBehaviour
     {
         Scene nextScene = SceneManager.GetSceneAt(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.SetActiveScene(nextScene);
+    }
+
+    public void ResetScene()
+    {
+        if(m_gameOver)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  
+        }
     }
 
     public void SetGameOver()
