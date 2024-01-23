@@ -17,13 +17,12 @@ public class GameManager : MonoBehaviour
     {
         m_gameOver = false;
         m_gameOverUI = GameObject.Find("GameOver");
-        m_gameOverUI.SetActive(m_gameOver);
+        m_gameOverUI.SetActive(m_gameOver);        
 
-        int systemTime = System.DateTime.Now.Millisecond;        
-        Random.InitState(systemTime);
+        System.Random rnd = new System.Random();
         for(int i = 0; i <= 4; i++)
         {
-            Instantiate(m_pickup, new Vector3(Random.Range(10.0f, 40.0f), 0, Random.Range(10.0f, 40.0f)), Quaternion.identity);
+            Instantiate(m_pickup, new Vector3(rnd.Next(10, 40), 0, rnd.Next(10, 40)), Quaternion.identity);
         }
         
         Instantiate(m_enemySpawner, new Vector3(2f, 0.2f, 2f), Quaternion.identity);

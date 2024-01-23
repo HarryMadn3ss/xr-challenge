@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     float m_maxSpeed = 50;
     float m_minSpeed = 0;
     float m_defaultSpeed = 250;
-    float m_sprintSpeed = 1000;
+    float m_sprintSpeed = 500;
 
     bool m_forward, m_backward, m_left, m_right, m_sprinting;    
 
