@@ -10,7 +10,7 @@ public class EscapeZone : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GetComponent<GameManager>();
+        gameManager = GameObject.Find("Managers").GetComponent<GameManager>();
 
         this.gameObject.SetActive(false);
         m_canEscape = false;

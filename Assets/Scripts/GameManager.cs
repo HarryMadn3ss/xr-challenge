@@ -42,8 +42,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene()
     {
-        Scene nextScene = SceneManager.GetSceneAt(SceneManager.GetActiveScene().buildIndex + 1);
-        SceneManager.SetActiveScene(nextScene);
+        SceneManager.LoadScene("CreditsMenu");
     }
 
     public void ResetScene()

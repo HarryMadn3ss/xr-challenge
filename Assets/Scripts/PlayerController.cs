@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -12,8 +13,10 @@ public class PlayerController : MonoBehaviour
     float m_speed = 250;
     float m_maxSpeed = 50;
     float m_minSpeed = 0;
+    float m_defaultSpeed = 250;
+    float m_sprintSpeed = 1000;
 
-    bool m_forward, m_backward, m_left, m_right;    
+    bool m_forward, m_backward, m_left, m_right, m_sprinting;    
 
     GameManager m_manager;
     public GameObject m_projectile;
@@ -33,6 +36,7 @@ public class PlayerController : MonoBehaviour
         m_backward = Input.GetKey(KeyCode.S);
         m_left = Input.GetKey(KeyCode.A);
         m_right = Input.GetKey(KeyCode.D);
+        m_sprinting = Input.GetKey(KeyCode.LeftShift);
         
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -43,6 +47,14 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //movement
+        if(m_sprinting)
+        {
+            m_speed = m_sprintSpeed;
+        }
+        else if(!m_sprinting)
+        {
+            m_speed = m_defaultSpeed;
+        }
 
         if(m_forward && m_right)
         {
@@ -84,12 +96,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        GameObject collectable = collision.transform.gameObject;
+        if(collision.tag == "Star")
+        {
+            GameObject collectable = collision.transform.gameObject;
 
-        collectable.GetComponent<Pickup>().GetPickedUp();
+            collectable.GetComponent<Pickup>().GetPickedUp();
 
-        m_manager.GetComponent<ScoreManager>().IncreaseScore(collectable.GetComponent<Pickup>().ScoreValue);
+            m_manager.GetComponent<ScoreManager>().IncreaseScore(collectable.GetComponent<Pickup>().ScoreValue);
 
-        Destroy(collectable);
+            Destroy(collectable);
+        }        
     }
 }

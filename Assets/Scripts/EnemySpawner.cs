@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         m_enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if(m_enemies.Length < 30 )
+        if(m_enemies.Length < 50 )
         {
             if(m_spawnRate < 0)
             {
