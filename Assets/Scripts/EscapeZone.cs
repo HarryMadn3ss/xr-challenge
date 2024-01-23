@@ -31,7 +31,7 @@ public class EscapeZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_canEscape && this.isActiveAndEnabled)
+        if (m_canEscape && this.isActiveAndEnabled && other.gameObject.tag == "Player")
         {
             gameManager.GetComponent<GameManager>().ChangeScene();
         }

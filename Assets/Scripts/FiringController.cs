@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FiringController : MonoBehaviour
 {
@@ -18,11 +19,14 @@ public class FiringController : MonoBehaviour
     Vector3 m_projectileVelocity = Vector3.zero;
     Vector3 m_spwanPos = Vector3.zero;
 
+    Image m_abillityBar;
+
     // Start is called before the first frame update
     void Start()
     {
         m_isFiring = false;
         m_cooldown = 0;
+        m_abillityBar = GameObject.Find("AbillityBarInner").GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -52,21 +56,22 @@ public class FiringController : MonoBehaviour
                 m_projectileVelocity.z = 1;
                 m_spwanPos.z = transform.position.z + 0.8f;
             }
-            else if (m_fireDown)
+            if (m_fireDown)
             {
                 m_projectileVelocity.z = -1;
                 m_spwanPos.z = transform.position.z - 0.8f;
             }
-            else if (m_fireLeft)
+            if (m_fireLeft)
             {
                 m_projectileVelocity.x = -2.1f;
                 m_spwanPos.x = transform.position.x - 0.8f;
             }
-            else if (m_fireRight)
+            if (m_fireRight)
             {
                 m_projectileVelocity.x = 1;
                 m_spwanPos.x = transform.position.x + 0.8f;
             }
+            m_spwanPos.y = 0.3f;
 
             m_projectileVelocity *= m_speed;
             Instantiate(m_projectile, m_spwanPos, Quaternion.identity);
@@ -74,23 +79,24 @@ public class FiringController : MonoBehaviour
             if(m_fireRateActive)
             {
                 m_cooldown = 0.2f;
-                if (m_fireRateAbillity <= 0)
-                {
-                    m_fireRateActive = false;
-                    m_fireRateAbillity -= Mathf.Round(Time.deltaTime);
-                    if(m_fireRateAbillity <=0)
-                    {
-                        m_fireRateActive = false;
-                        m_fireRateAbillity = 0;
-                    }
-                }
             }
             else
             {
                 m_cooldown = m_maxCooldown;
             }
         }
-            m_spwanPos = transform.position;
+        m_spwanPos = transform.position;
+
+        if(m_fireRateActive)
+        {
+            m_fireRateAbillity -= Mathf.Round(Time.deltaTime);
+        } 
+        if (m_fireRateAbillity <= 0)
+        {
+            m_fireRateActive = false;
+        }
+
+        m_abillityBar.fillAmount = m_fireRateAbillity / 10;
 
     }
 
